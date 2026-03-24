@@ -22,6 +22,8 @@ body {
 h1 { font-size: 2.5rem; margin-bottom: 0; color: #2c3e50; }
 h2 { font-size: 1.2rem; font-weight: normal; color: #555; margin-top: 5px; margin-bottom: 30px; }
 label { display: block; margin: 15px 0 5px; font-weight: bold; }
+
+/* Estilo uniforme para todos os campos */
 input, select {
   width: 100%;
   padding: 12px;
@@ -30,10 +32,11 @@ input, select {
   background: #f9f9f9;
   font-size: 1rem;
   transition: 0.3s;
+  margin-bottom: 20px; /* Espaço entre campos */
 }
 input:focus, select:focus { border-color: #3498db; outline: none; background: #fff; }
 
-/* Flexbox para alinhar o botão de info ao lado do campo */
+/* Flexbox para alinhar botão de info */
 .field-with-info {
   display: flex;
   align-items: center;
@@ -113,7 +116,7 @@ button[type="submit"]:hover { background: #2980b9; }
 
   <form id="rescisaoForm">
     <label for="salario">Salário Mensal (R$)</label>
-    <input type="number" id="salario" required>
+    <input type="number" id="salario" placeholder="Ex: 2500" required>
 
     <div class="field-with-info">
       <select id="motivo" required>
