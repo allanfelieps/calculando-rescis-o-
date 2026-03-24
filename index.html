@@ -97,6 +97,11 @@ Calculadora de Rescisão
     <option value="justa">Justa causa</option>
   </select>
 
+  <select id="feriasVencidas">
+    <option value="nao">Não possui férias vencidas</option>
+    <option value="sim">Possui férias vencidas</option>
+  </select>
+
   <button onclick="calcular()">Calcular agora</button>
 
   <div class="resultado" id="resultado"></div>
@@ -125,6 +130,7 @@ function calcular() {
   let admissao = new Date(document.getElementById('admissao').value);
   let demissao = new Date(document.getElementById('demissao').value);
   let tipo = document.getElementById('tipo').value;
+  let feriasVencidas = document.getElementById('feriasVencidas').value;
 
   if (!salario || !admissao || !demissao) {
     alert("Preencha todos os campos!");
@@ -135,17 +141,24 @@ function calcular() {
               (demissao.getMonth() - admissao.getMonth());
 
   let saldo = salario / 30 * demissao.getDate();
-  let ferias = (salario / 12) * meses;
+  let feriasProporcionais = (salario / 12) * meses;
   let decimo = (salario / 12) * meses;
   let fgts = salario * 0.08 * meses;
 
   let multa = tipo === "sem_justa" ? fgts * 0.4 : 0;
 
-  let total = saldo + ferias + decimo + multa;
+  // Férias vencidas
+  let feriasVencidasValor = 0;
+  if (feriasVencidas === "sim") {
+    feriasVencidasValor = salario + (salario / 3);
+  }
+
+  let total = saldo + feriasProporcionais + decimo + multa + feriasVencidasValor;
 
   document.getElementById('resultado').innerHTML = `
     <p><b>Saldo:</b> R$ ${saldo.toFixed(2)}</p>
-    <p><b>Férias:</b> R$ ${ferias.toFixed(2)}</p>
+    <p><b>Férias proporcionais:</b> R$ ${feriasProporcionais.toFixed(2)}</p>
+    <p><b>Férias vencidas:</b> R$ ${feriasVencidasValor.toFixed(2)}</p>
     <p><b>13º:</b> R$ ${decimo.toFixed(2)}</p>
     <p><b>FGTS:</b> R$ ${fgts.toFixed(2)}</p>
     <p><b>Multa:</b> R$ ${multa.toFixed(2)}</p>
