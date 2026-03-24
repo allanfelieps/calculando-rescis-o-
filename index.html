@@ -1,298 +1,252 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<title>Calculadora de Rescisão</title>
-
-<style>
-* { box-sizing: border-box; font-family: Arial, sans-serif; }
-
-body {
-  background: #f4f7fb;
-  padding: 20px;
-}
-
-.container {
-  max-width: 650px;
-  margin: auto;
-  background: white;
-  padding: 30px 40px;
-  border-radius: 12px;
-  box-shadow: 0 5px 25px rgba(0,0,0,0.08);
-}
-
-h1 {
-  font-size: 38px;
-  font-weight: 700;
-  text-transform: uppercase;
-  text-align: center;
-  margin-bottom: 10px;
-  color: #007B5E;
-}
-
-.subtitulo {
-  font-size: 18px;
-  text-align: center;
-  margin-bottom: 25px;
-  color: #444;
-}
-
-label {
-  font-weight: 600;
-  margin-top: 15px;
-  display: block;
-}
-
-.input-group {
-  position: relative;
-}
-
-.input-group span {
-  position: absolute;
-  left: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #555;
-}
-
-.input-group input {
-  padding-left: 30px;
-}
-
-input, select {
-  width: 100%;
-  padding: 12px;
-  margin-top: 5px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  background: #f9fafc;
-  font-size: 14px;
-  transition: 0.3s;
-}
-
-input:focus, select:focus {
-  outline: none;
-  border-color: #007B5E;
-  background: #fff;
-  box-shadow: 0 0 5px rgba(0,123,94,0.2);
-}
-
-button {
-  margin-top: 20px;
-  width: 100%;
-  padding: 14px;
-  background: #007B5E;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-button:hover {
-  background: #005a42;
-}
-
-.resultado {
-  margin-top: 20px;
-  padding: 20px;
-  background: #f1fdf7;
-  border-radius: 8px;
-  display: none;
-}
-
-.checkbox {
-  margin-top: 15px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.checkbox input {
-  width: auto;
-  margin: 0;
-}
-
-/* Botão de interrogação */
-.help-btn {
-  display: inline-block;
-  background: #007B5E;
-  color: white;
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  font-size: 14px;
-  line-height: 20px;
-  text-align: center;
-  cursor: pointer;
-  margin-left: 8px;
-}
-
-.help-text {
-  display: none;
-  font-size: 13px;
-  color: #333;
-  margin-top: 5px;
-  background: #f9f9f9;
-  padding: 8px;
-  border-radius: 6px;
-  border: 1px solid #ddd;
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cálculo de Rescisão Trabalhista</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    
+    body {
+      font-family: 'Inter', system_ui, sans-serif;
+    }
+    
+    .wave-header {
+      background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+    }
+    
+    .input-focus {
+      transition: all 0.2s;
+    }
+    .input-focus:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+  </style>
 </head>
+<body class="bg-zinc-950 text-zinc-800 min-h-screen">
 
-<body>
-
-<div class="container">
-
-  <h1>CÁLCULO DA RESCISÃO</h1>
-  <div class="subtitulo">
-    Saiba agora como realizar o cálculo da rescisão trabalhista
+  <!-- Top Bar -->
+  <div class="bg-black text-white px-4 py-3 flex items-center justify-between sticky top-0 z-50">
+    <div class="flex items-center gap-3">
+      <button onclick="history.back()" class="w-9 h-9 flex items-center justify-center rounded-full hover:bg-zinc-800 transition">
+        <i class="fas fa-times text-2xl"></i>
+      </button>
+      <button class="w-9 h-9 flex items-center justify-center rounded-full hover:bg-zinc-800 transition">
+        <i class="fas fa-info-circle text-2xl"></i>
+      </button>
+    </div>
+    
+    <div class="flex items-center gap-3">
+      <button class="px-6 py-2.5 bg-zinc-800 hover:bg-zinc-700 rounded-full font-medium text-sm transition">Salvar</button>
+      <button class="px-7 py-2.5 bg-white text-black font-semibold rounded-full hover:bg-zinc-100 transition">Compartilhar</button>
+    </div>
   </div>
 
-  <label>
-    Motivo da rescisão
-    <span class="help-btn" onclick="toggleHelp('help-motivo')">?</span>
-  </label>
-  <select id="motivo">
-    <option value="sem">Sem justa causa</option>
-    <option value="pedido">Pedido de demissão</option>
-    <option value="justa">Justa causa</option>
-  </select>
-  <div id="help-motivo" class="help-text">
-    <strong>Sem justa causa:</strong> A empresa demite o funcionário sem motivo específico.<br>
-    <strong>Pedido de demissão:</strong> Você solicita a saída da empresa.<br>
-    <strong>Justa causa:</strong> A demissão ocorre por mau comportamento ou quebra de regras.
+  <div class="max-w-5xl mx-auto px-4 py-6">
+
+    <div class="bg-white rounded-3xl shadow-2xl overflow-hidden">
+
+      <!-- Cabeçalho -->
+      <div class="wave-header text-white px-6 pt-8 pb-10 text-center">
+        <h1 class="text-3xl font-bold tracking-tight">Cálculo de Rescisão Trabalhista</h1>
+        <p class="mt-2 opacity-90 text-lg">Calcule sua indenização de forma rápida e precisa</p>
+      </div>
+
+      <div class="p-6 lg:p-10">
+        <div class="grid md:grid-cols-2 gap-10">
+
+          <!-- Formulário -->
+          <div>
+            <h2 class="text-2xl font-semibold mb-6">Informe seus dados</h2>
+            
+            <div class="space-y-6">
+              <div class="grid grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-sm font-medium text-zinc-600 mb-1.5">Data de Admissão</label>
+                  <input type="date" id="admissao" value="2022-01-15" 
+                         class="input-focus w-full border border-zinc-300 rounded-2xl px-5 py-4 focus:outline-none text-base">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-zinc-600 mb-1.5">Data de Demissão</label>
+                  <input type="date" id="demissao" value="2023-12-20" 
+                         class="input-focus w-full border border-zinc-300 rounded-2xl px-5 py-4 focus:outline-none text-base">
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-zinc-600 mb-1.5">Salário Mensal (R$)</label>
+                <div class="relative">
+                  <span class="absolute left-5 top-1/2 -translate-y-1/2 text-zinc-500 font-medium">R$</span>
+                  <input type="text" id="salario" value="3000" 
+                         class="input-focus w-full border border-zinc-300 rounded-2xl pl-12 pr-5 py-4 focus:outline-none text-base">
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-zinc-600 mb-2">Tipo de Rescisão</label>
+                <div class="flex gap-3">
+                  <label class="flex-1 cursor-pointer">
+                    <input type="radio" name="tipo" id="semJusta" checked class="peer hidden">
+                    <div class="border-2 border-zinc-200 peer-checked:border-blue-600 peer-checked:bg-blue-50 rounded-2xl p-4 text-center font-medium transition">
+                      Sem Justa Causa
+                    </div>
+                  </label>
+                  <label class="flex-1 cursor-pointer">
+                    <input type="radio" name="tipo" id="pedidoDemissao" class="peer hidden">
+                    <div class="border-2 border-zinc-200 peer-checked:border-blue-600 peer-checked:bg-blue-50 rounded-2xl p-4 text-center font-medium transition">
+                      Pedido de Demissão
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-zinc-600 mb-1.5">Férias Vendidas</label>
+                <select id="feriasVendidas" class="input-focus w-full border border-zinc-300 rounded-2xl px-5 py-4 focus:outline-none text-base bg-white">
+                  <option value="nao">Não</option>
+                  <option value="sim">Sim</option>
+                </select>
+              </div>
+            </div>
+
+            <button onclick="calcularRescisao()" 
+                    class="mt-10 w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold text-lg py-5 rounded-2xl transition shadow-lg">
+              Calcular Rescisão
+            </button>
+          </div>
+
+          <!-- Resultado -->
+          <div id="resultado" class="bg-gradient-to-br from-sky-50 to-blue-50 rounded-3xl p-7 h-fit hidden">
+            <div class="flex items-center gap-3 mb-6">
+              <i class="fas fa-calculator text-blue-600 text-2xl"></i>
+              <h3 class="font-semibold text-2xl">Resultado da Rescisão</h3>
+            </div>
+            
+            <div class="space-y-5 text-base">
+              <div class="flex justify-between">
+                <span class="text-zinc-600">Aviso Prévio</span>
+                <span id="avisoPrev" class="font-semibold">R$ 0,00</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-zinc-600">Férias Proporcionais + 1/3</span>
+                <span id="feriasProp" class="font-semibold">R$ 0,00</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-zinc-600">13º Salário Proporcional</span>
+                <span id="decimoTerceiro" class="font-semibold">R$ 0,00</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-zinc-600">Multa FGTS (40%)</span>
+                <span id="multaFGTS" class="font-semibold">R$ 0,00</span>
+              </div>
+              
+              <hr class="border-zinc-300 my-3">
+              
+              <div class="flex justify-between text-xl font-bold text-blue-700 pt-3">
+                <span>Total a Receber</span>
+                <span id="total" class="font-bold">R$ 0,00</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Placeholder -->
+          <div id="placeholder" class="bg-gradient-to-br from-sky-50 to-blue-50 rounded-3xl p-7 h-fit flex flex-col items-center justify-center text-center py-16">
+            <i class="fas fa-calculator text-6xl text-blue-200 mb-6"></i>
+            <p class="text-zinc-400 font-medium">Preencha os dados e clique em Calcular</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Como Funciona -->
+      <div class="bg-zinc-50 border-t px-6 py-12">
+        <h3 class="text-center text-2xl font-semibold mb-10">Como Funciona?</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
+          <div>
+            <div class="mx-auto w-16 h-16 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mb-5 text-3xl">📋</div>
+            <p class="font-medium">1. Preencha seus dados</p>
+          </div>
+          <div>
+            <div class="mx-auto w-16 h-16 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mb-5 text-3xl">⚙️</div>
+            <p class="font-medium">2. Faça o cálculo automático</p>
+          </div>
+          <div>
+            <div class="mx-auto w-16 h-16 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mb-5 text-3xl">📊</div>
+            <p class="font-medium">3. Veja o resultado detalhado</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer class="bg-white border-t px-6 py-8 text-xs text-zinc-500">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div>
+            <strong class="text-zinc-700">Contato</strong><br>
+            contato@seusite.com<br>
+            (11) 1234-5678
+          </div>
+          <div>
+            <strong class="text-zinc-700">Links Úteis</strong><br>
+            Termos de Uso<br>
+            Política de Privacidade
+          </div>
+          <div>
+            <strong class="text-zinc-700">Sobre Nós</strong><br>
+            Quem Somos<br>
+            + de 5.000 cálculos realizados
+          </div>
+        </div>
+        <p class="text-center mt-10 text-[10px]">© 2026 Seu Site - Todos os direitos reservados</p>
+      </footer>
+    </div>
   </div>
 
-  <label>Data de admissão</label>
-  <input type="date" id="admissao">
+  <script>
+    function calcularRescisao() {
+      const admissao = new Date(document.getElementById('admissao').value);
+      const demissao = new Date(document.getElementById('demissao').value);
+      let salario = parseFloat(document.getElementById('salario').value.replace(',', '.')) || 0;
+      
+      if (!admissao || !demissao || salario <= 0) {
+        alert("Por favor, preencha todos os campos corretamente.");
+        return;
+      }
 
-  <label>Data de demissão</label>
-  <input type="date" id="demissao">
+      const mesesTrabalhados = (demissao.getFullYear() - admissao.getFullYear()) * 12 + 
+                               (demissao.getMonth() - admissao.getMonth());
 
-  <label>
-    Salário
-  </label>
-  <div class="input-group">
-    <span>R$</span>
-    <input type="text" id="salario" placeholder="0,00">
-  </div>
+      // Aviso Prévio
+      const avisoPrev = document.getElementById('semJusta').checked ? salario : 0;
 
-  <label class="checkbox">
-    <input type="checkbox" id="ferias">
-    <span>Possui férias vencidas</span>
-    <span class="help-btn" onclick="toggleHelp('help-ferias')">?</span>
-  </label>
-  <div id="help-ferias" class="help-text">
-    Se você possui férias vencidas, o valor deve ser pago junto à rescisão, acrescido de 1/3.
-  </div>
+      // Férias Proporcionais + 1/3
+      const feriasProp = (salario / 12) * (mesesTrabalhados % 12);
+      const totalFerias = feriasProp + (feriasProp / 3);
 
-  <label>
-    Aviso prévio
-    <span class="help-btn" onclick="toggleHelp('help-aviso')">?</span>
-  </label>
-  <select id="aviso">
-    <option value="sim">Sim</option>
-    <option value="nao">Não</option>
-  </select>
-  <div id="help-aviso" class="help-text">
-    O aviso prévio é o período que o empregado deve cumprir antes da saída, podendo ser indenizado caso não seja cumprido.
-  </div>
+      // 13º Salário Proporcional
+      const decimoTerceiro = (salario / 12) * (mesesTrabalhados % 12);
 
-  <button onclick="calcular()">Calcular</button>
-  <button onclick="baixarPDF()">Baixar PDF</button>
+      // Multa FGTS 40% (aproximação)
+      const tempoAnos = mesesTrabalhados / 12;
+      const fgtsAprox = salario * tempoAnos * 0.08;
+      const multaFGTS = document.getElementById('semJusta').checked ? fgtsAprox * 0.40 : 0;
 
-  <div class="resultado" id="resultado"></div>
-</div>
+      // Total
+      const total = avisoPrev + totalFerias + decimoTerceiro + multaFGTS;
 
-<script>
-function toggleHelp(id) {
-  const elem = document.getElementById(id);
-  elem.style.display = elem.style.display === 'block' ? 'none' : 'block';
-}
+      // Preenche os valores
+      document.getElementById('avisoPrev').textContent = `R$ ${avisoPrev.toFixed(2).replace('.', ',')}`;
+      document.getElementById('feriasProp').textContent = `R$ ${totalFerias.toFixed(2).replace('.', ',')}`;
+      document.getElementById('decimoTerceiro').textContent = `R$ ${decimoTerceiro.toFixed(2).replace('.', ',')}`;
+      document.getElementById('multaFGTS').textContent = `R$ ${multaFGTS.toFixed(2).replace('.', ',')}`;
+      document.getElementById('total').textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
 
-function formatarMoeda(valor) {
-  return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-}
-
-document.getElementById("salario").addEventListener("input", function(e) {
-  let valor = e.target.value.replace(/\D/g, "");
-  valor = (valor / 100).toFixed(2) + "";
-  valor = valor.replace(".", ",");
-  valor = valor.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-  e.target.value = valor;
-});
-
-function calcular() {
-  const motivo = document.getElementById("motivo").value;
-  const admissao = new Date(document.getElementById("admissao").value);
-  const demissao = new Date(document.getElementById("demissao").value);
-  const aviso = document.getElementById("aviso").value;
-  let salario = document.getElementById("salario").value.replace(/\./g,'').replace(',','.');
-  salario = parseFloat(salario);
-  const ferias = document.getElementById("ferias").checked;
-
-  if (!salario || !admissao || !demissao) {
-    alert("Preencha todos os campos!");
-    return;
-  }
-
-  // Calcular tempo total em anos e meses
-  let anos = demissao.getFullYear() - admissao.getFullYear();
-  let meses = demissao.getMonth() - admissao.getMonth();
-  if (meses < 0) { anos--; meses += 12; }
-  const totalMeses = anos*12 + meses;
-
-  // FGTS
-  let fgts = salario * 0.08 * totalMeses;
-
-  // Multa de 40% sobre FGTS
-  let multa = (motivo === "sem") ? fgts * 0.4 : 0;
-
-  // Férias
-  let valorFerias = ferias ? salario + salario/3 : 0;
-
-  // Aviso prévio indenizado
-  let valorAviso = 0;
-  if (aviso === "sim") {
-    valorAviso = salario;
-  }
-
-  // Ajustes para justa causa
-  if (motivo === "justa") {
-    multa = 0;
-    valorFerias = 0;
-    valorAviso = 0;
-  }
-
-  const total = salario + fgts + multa + valorFerias + valorAviso;
-
-  const resultado = document.getElementById("resultado");
-  resultado.style.display = "block";
-
-  resultado.innerHTML = `
-    <strong>Resultado:</strong><br><br>
-    Tempo: ${anos} ano(s) e ${meses} mês(es) (${totalMeses} meses)<br>
-    Salário: ${formatarMoeda(salario)}<br>
-    FGTS: ${formatarMoeda(fgts)}<br>
-    Multa de 40% do FGTS: ${formatarMoeda(multa)}<br>
-    ${valorFerias ? `Férias: ${formatarMoeda(valorFerias)}<br>` : ""}
-    ${valorAviso ? `Aviso Prévio: ${formatarMoeda(valorAviso)}<br>` : ""}
-    <br><strong>Total: ${formatarMoeda(total)}</strong>
-    <hr>
-    <small>Este cálculo é apenas uma estimativa. Consulte um contador ou advogado trabalhista.</small>
-  `;
-}
-
-function baixarPDF() {
-  const conteudo = document.getElementById("resultado").innerText;
-  const win = window.open('', '', 'height=700,width=700');
-  win.document.write('<pre>' + conteudo + '</pre>');
-  win.document.close();
-  win.print();
-}
-</script>
-
+      // Mostra resultado
+      document.getElementById('resultado').classList.remove('hidden');
+      document.getElementById('placeholder').classList.add('hidden');
+    }
+  </script>
 </body>
 </html>
