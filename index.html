@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Calculadora de Rescisão</title>
+<title>Calculadora de Rescisão Online</title>
 
 <style>
 body {
@@ -24,7 +24,6 @@ body {
 
 h1 {
   text-align: center;
-  margin-bottom: 20px;
 }
 
 input, select, button {
@@ -46,7 +45,6 @@ button {
   color: white;
   font-weight: bold;
   cursor: pointer;
-  transition: 0.3s;
 }
 
 button:hover {
@@ -58,7 +56,6 @@ button:hover {
   background: #020617;
   padding: 15px;
   border-radius: 10px;
-  text-align: center;
 }
 
 .footer {
@@ -82,6 +79,7 @@ button:hover {
   <select id="tipo">
     <option value="sem_justa">Sem justa causa</option>
     <option value="pedido">Pedido de demissão</option>
+    <option value="justa">Justa causa</option>
   </select>
 
   <button onclick="calcular()">Calcular</button>
@@ -89,7 +87,7 @@ button:hover {
   <div class="resultado" id="resultado"></div>
 
   <div class="footer">
-    Estimativa simples — não substitui cálculo oficial
+    Estimativa simples — valores podem variar
   </div>
 </div>
 
@@ -113,21 +111,25 @@ function calcular() {
   let decimo = (salario / 12) * meses;
 
   let fgts = salario * 0.08 * meses;
-  let multa = tipo === "sem_justa" ? fgts * 0.4 : 0;
+
+  let multa = 0;
+  if (tipo === "sem_justa") {
+    multa = fgts * 0.4;
+  }
 
   let total = saldo + ferias + decimo + multa;
 
   document.getElementById('resultado').innerHTML = `
-    <p>Saldo de salário: R$ ${saldo.toFixed(2)}</p>
-    <p>Férias: R$ ${ferias.toFixed(2)}</p>
-    <p>13º salário: R$ ${decimo.toFixed(2)}</p>
-    <p>FGTS acumulado: R$ ${fgts.toFixed(2)}</p>
-    <p>Multa FGTS: R$ ${multa.toFixed(2)}</p>
+    <p>💰 Saldo de salário: R$ ${saldo.toFixed(2)}</p>
+    <p>🏖️ Férias: R$ ${ferias.toFixed(2)}</p>
+    <p>🎄 13º salário: R$ ${decimo.toFixed(2)}</p>
+    <p>🏦 FGTS acumulado: R$ ${fgts.toFixed(2)}</p>
+    <p>⚖️ Multa FGTS: R$ ${multa.toFixed(2)}</p>
     <hr>
-    <h3>Total: R$ ${total.toFixed(2)}</h3>
+    <h3>💵 Total estimado: R$ ${total.toFixed(2)}</h3>
   `;
 }
 </script>
 
 </body>
-</html> 
+</html>
