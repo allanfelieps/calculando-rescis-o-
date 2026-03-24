@@ -2,331 +2,167 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Calculadora de Rescisão</title>
-
 <style>
-* { box-sizing: border-box; font-family: Arial, sans-serif; }
-
-body {
-  background: #f4f7fb;
-  padding: 20px;
-}
-
-.container {
-  max-width: 650px;
-  margin: auto;
-  background: white;
-  padding: 30px 40px;
-  border-radius: 12px;
-  box-shadow: 0 5px 25px rgba(0,0,0,0.08);
-}
-
-h1 {
-  font-size: 38px;
-  font-weight: 700;
-  text-transform: uppercase;
-  text-align: center;
-  margin-bottom: 10px;
-  color: #007B5E;
-}
-
-.subtitulo {
-  font-size: 18px;
-  text-align: center;
-  margin-bottom: 25px;
-  color: #444;
-}
-
-label {
-  font-weight: 600;
-  margin-top: 15px;
-  display: block;
-}
-
-.input-group {
-  position: relative;
-}
-
-.input-group span {
-  position: absolute;
-  left: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #555;
-}
-
-.input-group input {
-  padding-left: 30px;
-}
-
-input, select {
-  width: 100%;
-  padding: 12px;
-  margin-top: 5px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  background: #f9fafc;
-  font-size: 14px;
-  transition: 0.3s;
-}
-
-input:focus, select:focus {
-  outline: none;
-  border-color: #007B5E;
-  background: #fff;
-  box-shadow: 0 0 5px rgba(0,123,94,0.2);
-}
-
-button {
-  margin-top: 20px;
-  width: 100%;
-  padding: 14px;
-  background: #007B5E;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-button:hover {
-  background: #005a42;
-}
-
-.resultado {
-  margin-top: 20px;
-  padding: 20px;
-  background: #f1fdf7;
-  border-radius: 8px;
-  display: none;
-}
-
-.checkbox {
-  margin-top: 15px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.checkbox input {
-  width: auto;
-  margin: 0;
-}
-
-/* Botão de interrogação */
-.help-btn {
-  display: inline-block;
-  background: #007B5E;
-  color: white;
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  font-size: 14px;
-  line-height: 20px;
-  text-align: center;
-  cursor: pointer;
-  margin-left: 8px;
-}
-
-.help-text {
-  display: none;
-  font-size: 13px;
-  color: #333;
-  margin-top: 5px;
-  background: #f9f9f9;
-  padding: 8px;
-  border-radius: 6px;
-  border: 1px solid #ddd;
-}
+  * { box-sizing: border-box; font-family: Arial, sans-serif; }
+  body {
+    background: #f4f7fb;
+    margin: 0;
+    padding: 20px;
+  }
+  .container {
+    max-width: 700px;
+    margin: auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0;
+    color: #2c3e50;
+  }
+  h2 {
+    font-size: 1.2rem;
+    font-weight: normal;
+    color: #555;
+    margin-top: 5px;
+    margin-bottom: 30px;
+  }
+  label {
+    display: block;
+    margin: 15px 0 5px;
+    font-weight: bold;
+  }
+  input, select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: #f9f9f9;
+    font-size: 1rem;
+    transition: 0.3s;
+  }
+  input:focus, select:focus {
+    border-color: #3498db;
+    outline: none;
+    background: #fff;
+  }
+  .field-with-info {
+    position: relative;
+  }
+  .info-btn {
+    position: absolute;
+    right: 10px;
+    top: 12px;
+    background: #3498db;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  .info-btn:hover {
+    background: #2980b9;
+  }
+  button {
+    margin-top: 20px;
+    padding: 15px;
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    background: #3498db;
+    color: white;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  button:hover {
+    background: #2980b9;
+  }
+  .result {
+    margin-top: 25px;
+    padding: 20px;
+    background: #e8f6ff;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    color: #2c3e50;
+  }
 </style>
 </head>
-
 <body>
 
 <div class="container">
+  <h1>CÁLCULO DA RESCISÃO</h1>
+  <h2>Saiba agora como calcular sua rescisão trabalhista</h2>
 
-  <h1>CÁLCULO DA RESCISÃO</h1>
-  <div class="subtitulo">
-    Saiba agora como realizar o cálculo da rescisão trabalhista
-  </div>
+  <form id="rescisaoForm">
+    <label for="salario">Salário Mensal (R$)</label>
+    <input type="number" id="salario" required>
 
-  <label>
-    Motivo da rescisão
-    <span class="help-btn" onclick="toggleHelp('help-motivo')">?</span>
-  </label>
-  <select id="motivo">
-    <option value="sem">Sem justa causa</option>
-    <option value="pedido">Pedido de demissão</option>
-    <option value="justa">Justa causa</option>
-  </select>
-  <div id="help-motivo" class="help-text">
-    <strong>Sem justa causa:</strong> A empresa demite o funcionário sem motivo específico.<br>
-    <strong>Pedido de demissão:</strong> Você solicita a saída da empresa.<br>
-    <strong>Justa causa:</strong> A demissão ocorre por mau comportamento ou quebra de regras.
-  </div>
+    <div class="field-with-info">
+      <label for="motivo">Motivo da Demissão</label>
+      <select id="motivo" required>
+        <option value="">Selecione</option>
+        <option value="pedido">Pedido do empregado</option>
+        <option value="demissao">Demissão sem justa causa</option>
+        <option value="justa">Demissão por justa causa</option>
+      </select>
+      <button type="button" class="info-btn" onclick="alert('Escolha o motivo da demissão. Ele afeta aviso prévio, FGTS e multa.')">?</button>
+    </div>
 
-  <label>Data de admissão</label>
-  <input type="date" id="admissao">
+    <div class="field-with-info">
+      <label for="ferias">Possui Férias Vencidas?</label>
+      <select id="ferias" required>
+        <option value="">Selecione</option>
+        <option value="sim">Sim</option>
+        <option value="nao">Não</option>
+      </select>
+      <button type="button" class="info-btn" onclick="alert('Se você tem férias vencidas, elas devem ser pagas integralmente na rescisão.')">?</button>
+    </div>
 
-  <label>Data de demissão</label>
-  <input type="date" id="demissao">
+    <div class="field-with-info">
+      <label for="aviso">Aviso Prévio</label>
+      <select id="aviso" required>
+        <option value="">Selecione</option>
+        <option value="trabalhado">Trabalhado</option>
+        <option value="indenizado">Indenizado</option>
+      </select>
+      <button type="button" class="info-btn" onclick="alert('O aviso prévio pode ser trabalhado ou indenizado. Ele afeta o valor da rescisão.')">?</button>
+    </div>
 
-  <label>
-    Salário
-  </label>
-  <div class="input-group">
-    <span>R$</span>
-    <input type="text" id="salario" placeholder="0,00">
-  </div>
+    <button type="submit">Calcular Rescisão</button>
+  </form>
 
-  <label class="checkbox">
-    <input type="checkbox" id="ferias">
-    <span>Possui férias vencidas</span>
-    <span class="help-btn" onclick="toggleHelp('help-ferias')">?</span>
-  </label>
-  <div id="help-ferias" class="help-text">
-    Se você possui férias vencidas, o valor deve ser pago junto à rescisão, acrescido de 1/3.
-  </div>
-
-  <label>
-    Aviso prévio
-    <span class="help-btn" onclick="toggleHelp('help-aviso')">?</span>
-  </label>
-  <select id="aviso">
-    <option value="sim">Sim</option>
-    <option value="nao">Não</option>
-  </select>
-  <div id="help-aviso" class="help-text">
-    O aviso prévio é o período que o empregado deve cumprir antes da saída, podendo ser indenizado caso não seja cumprido.
-  </div>
-
-  <button onclick="calcular()">Calcular</button>
-  <button onclick="baixarPDF()">Baixar PDF</button>
-
-  <div class="resultado" id="resultado"></div>
+  <div class="result" id="resultado"></div>
 </div>
 
 <script>
-function toggleHelp(id) {
-  const elem = document.getElementById(id);
-  elem.style.display = elem.style.display === 'block' ? 'none' : 'block';
-}
+document.getElementById('rescisaoForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  const salario = parseFloat(document.getElementById('salario').value);
+  const motivo = document.getElementById('motivo').value;
+  const ferias = document.getElementById('ferias').value;
+  const aviso = document.getElementById('aviso').value;
 
-function formatarMoeda(valor) {
-  return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-}
+  let total = 0;
 
-document.getElementById("salario").addEventListener("input", function(e) {
-  let valor = e.target.value.replace(/\D/g, "");
-  valor = (valor / 100).toFixed(2) + "";
-  valor = valor.replace(".", ",");
-  valor = valor.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-  e.target.value = valor;
+  // Aviso prévio
+  if(aviso === 'indenizado') total += salario;
+
+  // Férias vencidas
+  if(ferias === 'sim') total += salario + salario/3;
+
+  // Multa rescisória (simplificada)
+  if(motivo === 'demissao') total += salario * 0.4;
+
+  document.getElementById('resultado').innerHTML = `Valor aproximado da rescisão: <strong>R$ ${total.toFixed(2)}</strong>`;
 });
-
-function calcular() {
-  const motivo = document.getElementById("motivo").value;
-  const admissao = new Date(document.getElementById("admissao").value);
-  const demissao = new Date(document.getElementById("demissao").value);
-  const aviso = document.getElementById("aviso").value;
-  let salario = document.getElementById("salario").value.replace(/\./g,'').replace(',','.');
-  salario = parseFloat(salario);
-  const ferias = document.getElementById("ferias").checked;
-
-  if (!salario || !admissao || !demissao) {
-    alert("Preencha todos os campos!");
-    return;
-  }
-
-  // Calcular tempo total em anos e meses
-  let anos = demissao.getFullYear() - admissao.getFullYear();
-  let meses = demissao.getMonth() - admissao.getMonth();
-  if (meses < 0) { anos--; meses += 12; }
-  const totalMeses = anos*12 + meses;
-
-  // FGTS
-  let fgts = salario * 0.08 * totalMeses;
-
-  // Multa de 40% sobre FGTS
-  let multa = (motivo === "sem") ? fgts * 0.4 : 0;
-
-  // Férias
-  let valorFerias = ferias ? salario + salario/3 : 0;
-
-  // Aviso prévio indenizado
-  let valorAviso = 0;
-  if (aviso === "sim") {
-    valorAviso = salario;
-  }
-
-  // Ajustes para justa causa
-  if (motivo === "justa") {
-    multa = 0;
-    valorFerias = 0;
-    valorAviso = 0;
-  }
-
-  const total = salario + fgts + multa + valorFerias + valorAviso;
-
-  const resultado = document.getElementById("resultado");
-  resultado.style.display = "block";
-
-  resultado.innerHTML = `
-    <strong>Resultado:</strong><br><br>
-    Tempo: ${anos} ano(s) e ${meses} mês(es) (${totalMeses} meses)<br>
-    Salário: ${formatarMoeda(salario)}<br>
-    FGTS: ${formatarMoeda(fgts)}<br>
-    Multa de 40% do FGTS: ${formatarMoeda(multa)}<br>
-    ${valorFerias ? `Férias: ${formatarMoeda(valorFerias)}<br>` : ""}
-    ${valorAviso ? `Aviso Prévio: ${formatarMoeda(valorAviso)}<br>` : ""}
-    <br><strong>Total: ${formatarMoeda(total)}</strong>
-    <hr>
-    <small>Este cálculo é apenas uma estimativa. Consulte um contador ou advogado trabalhista.</small>
-  `;
-}
-
-function baixarPDF() {
-  const conteudo = document.getElementById("resultado").innerText;
-  const win = window.open('', '', 'height=700,width=700');
-  win.document.write('<pre>' + conteudo + '</pre>');
-  win.document.close();
-  win.print();
-}
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
