@@ -1,1 +1,135 @@
-<h1>🔥 TESTE ALLAN 🔥</h1>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculadora de Rescisão Online</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  color: white;
+}
+
+.container {
+  max-width: 450px;
+  margin: 40px auto;
+  background: #111827;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+h1 {
+  text-align: center;
+}
+
+input, select, button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+}
+
+input, select {
+  background: #1f2937;
+  color: white;
+}
+
+button {
+  background: #22c55e;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #16a34a;
+}
+
+.resultado {
+  margin-top: 20px;
+  background: #020617;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.footer {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 12px;
+  opacity: 0.6;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>💼 Calculadora de Rescisão</h1>
+
+  <input type="number" id="salario" placeholder="Salário (R$)">
+  <input type="date" id="admissao">
+  <input type="date" id="demissao">
+
+  <select id="tipo">
+    <option value="sem_justa">Sem justa causa</option>
+    <option value="pedido">Pedido de demissão</option>
+    <option value="justa">Justa causa</option>
+  </select>
+
+  <button onclick="calcular()">Calcular</button>
+
+  <div class="resultado" id="resultado"></div>
+
+  <div class="footer">
+    Estimativa simples — valores podem variar
+  </div>
+</div>
+
+<script>
+function calcular() {
+  let salario = parseFloat(document.getElementById('salario').value);
+  let admissao = new Date(document.getElementById('admissao').value);
+  let demissao = new Date(document.getElementById('demissao').value);
+  let tipo = document.getElementById('tipo').value;
+
+  if (!salario || !admissao || !demissao) {
+    alert("Preencha todos os campos!");
+    return;
+  }
+
+  let meses = (demissao.getFullYear() - admissao.getFullYear()) * 12 +
+              (demissao.getMonth() - admissao.getMonth());
+
+  let saldo = salario / 30 * demissao.getDate();
+  let ferias = (salario / 12) * meses;
+  let decimo = (salario / 12) * meses;
+
+  let fgts = salario * 0.08 * meses;
+
+  let multa = 0;
+  if (tipo === "sem_justa") {
+    multa = fgts * 0.4;
+  }
+
+  let total = saldo + ferias + decimo + multa;
+
+  document.getElementById('resultado').innerHTML = `
+    <p>💰 Saldo de salário: R$ ${saldo.toFixed(2)}</p>
+    <p>🏖️ Férias: R$ ${ferias.toFixed(2)}</p>
+    <p>🎄 13º salário: R$ ${decimo.toFixed(2)}</p>
+    <p>🏦 FGTS acumulado: R$ ${fgts.toFixed(2)}</p>
+    <p>⚖️ Multa FGTS: R$ ${multa.toFixed(2)}</p>
+    <hr>
+    <h3>💵 Total estimado: R$ ${total.toFixed(2)}</h3>
+  `;
+}
+</script>
+
+</body>
+</html>
