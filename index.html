@@ -1,169 +1,130 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Calculadora de Rescisão Online Grátis</title>
+  <meta charset="UTF-8">
+  <title>Calculadora de Rescisão</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
 
-<style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f1f5f9;
-  color: #1e293b;
-}
+    .container {
+      background: #fff;
+      padding: 25px;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
 
-header {
-  background: #0f172a;
-  color: white;
-  padding: 15px;
-  text-align: center;
-  font-weight: bold;
-}
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
 
-.container {
-  max-width: 500px;
-  margin: 30px auto;
-  background: white;
-  padding: 25px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
+    .campo {
+      margin-bottom: 15px;
+      display: flex;
+      flex-direction: column;
+    }
 
-h1 {
-  text-align: center;
-  font-size: 22px;
-}
+    .campo label {
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #333;
+    }
 
-input, select, button {
-  width: 100%;
-  padding: 12px;
-  margin-top: 10px;
-  border-radius: 6px;
-  border: 1px solid #cbd5e1;
-  font-size: 16px;
-}
+    .campo input {
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
 
-button {
-  background: #2563eb;
-  color: white;
-  font-weight: bold;
-  border: none;
-}
+    button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background: #2e7d32;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
 
-button:hover {
-  background: #1d4ed8;
-}
+    button:hover {
+      background: #1b5e20;
+    }
 
-.resultado {
-  margin-top: 20px;
-  background: #f8fafc;
-  padding: 15px;
-  border-radius: 8px;
-}
-
-.info {
-  max-width: 500px;
-  margin: 20px auto;
-  font-size: 14px;
-  line-height: 1.5;
-}
-
-footer {
-  text-align: center;
-  font-size: 12px;
-  margin: 20px;
-  color: #64748b;
-}
-</style>
+    .resultado {
+      margin-top: 20px;
+      padding: 15px;
+      background: #e8f5e9;
+      border-radius: 8px;
+      display: none;
+    }
+  </style>
 </head>
-
 <body>
 
-<header>
-Calculadora de Rescisão
-</header>
-
 <div class="container">
-  <h1>Calcule sua rescisão trabalhista</h1>
+  <h1>Calculadora de Rescisão</h1>
 
-  <input type="number" id="salario" placeholder="Salário (R$)">
-  <input type="date" id="admissao">
-  <input type="date" id="demissao">
+  <div class="campo">
+    <label for="admissao">Data de admissão</label>
+    <input type="date" id="admissao">
+  </div>
 
-  <select id="tipo">
-    <option value="sem_justa">Sem justa causa</option>
-    <option value="pedido">Pedido de demissão</option>
-    <option value="justa">Justa causa</option>
-  </select>
+  <div class="campo">
+    <label for="demissao">Data de demissão</label>
+    <input type="date" id="demissao">
+  </div>
 
-  <select id="feriasVencidas">
-    <option value="nao">Não possui férias vencidas</option>
-    <option value="sim">Possui férias vencidas</option>
-  </select>
+  <div class="campo">
+    <label for="salario">Salário (R$)</label>
+    <input type="number" id="salario" placeholder="Ex: 2000">
+  </div>
 
-  <button onclick="calcular()">Calcular agora</button>
+  <button onclick="calcular()">Calcular</button>
 
   <div class="resultado" id="resultado"></div>
 </div>
 
-<div class="info">
-  <h3>Como funciona o cálculo?</h3>
-  <p>
-  Esta calculadora estima valores de rescisão com base no salário e tempo de trabalho.
-  São considerados saldo de salário, férias proporcionais, 13º salário e multa do FGTS.
-  </p>
-
-  <h3>Importante</h3>
-  <p>
-  Os valores são apenas estimativas. Para valores exatos, consulte um contador ou advogado trabalhista.
-  </p>
-</div>
-
-<footer>
-© 2026 Calculadora de Rescisão — Uso informativo
-</footer>
-
 <script>
 function calcular() {
-  let salario = parseFloat(document.getElementById('salario').value);
-  let admissao = new Date(document.getElementById('admissao').value);
-  let demissao = new Date(document.getElementById('demissao').value);
-  let tipo = document.getElementById('tipo').value;
-  let feriasVencidas = document.getElementById('feriasVencidas').value;
+  const admissao = new Date(document.getElementById("admissao").value);
+  const demissao = new Date(document.getElementById("demissao").value);
+  const salario = parseFloat(document.getElementById("salario").value);
 
-  if (!salario || !admissao || !demissao) {
+  if (!admissao || !demissao || !salario) {
     alert("Preencha todos os campos!");
     return;
   }
 
-  let meses = (demissao.getFullYear() - admissao.getFullYear()) * 12 +
-              (demissao.getMonth() - admissao.getMonth());
+  const tempo = (demissao - admissao) / (1000 * 60 * 60 * 24 * 30);
+  const meses = Math.floor(tempo);
 
-  let saldo = salario / 30 * demissao.getDate();
-  let feriasProporcionais = (salario / 12) * meses;
-  let decimo = (salario / 12) * meses;
-  let fgts = salario * 0.08 * meses;
+  const saldoSalario = salario;
+  const fgts = salario * 0.08 * meses;
+  const multa = fgts * 0.4;
 
-  let multa = tipo === "sem_justa" ? fgts * 0.4 : 0;
+  const total = saldoSalario + fgts + multa;
 
-  // Férias vencidas
-  let feriasVencidasValor = 0;
-  if (feriasVencidas === "sim") {
-    feriasVencidasValor = salario + (salario / 3);
-  }
+  const resultado = document.getElementById("resultado");
+  resultado.style.display = "block";
 
-  let total = saldo + feriasProporcionais + decimo + multa + feriasVencidasValor;
-
-  document.getElementById('resultado').innerHTML = `
-    <p><b>Saldo:</b> R$ ${saldo.toFixed(2)}</p>
-    <p><b>Férias proporcionais:</b> R$ ${feriasProporcionais.toFixed(2)}</p>
-    <p><b>Férias vencidas:</b> R$ ${feriasVencidasValor.toFixed(2)}</p>
-    <p><b>13º:</b> R$ ${decimo.toFixed(2)}</p>
-    <p><b>FGTS:</b> R$ ${fgts.toFixed(2)}</p>
-    <p><b>Multa:</b> R$ ${multa.toFixed(2)}</p>
-    <hr>
-    <h3>Total: R$ ${total.toFixed(2)}</h3>
+  resultado.innerHTML = `
+    <strong>Resultado:</strong><br><br>
+    Tempo trabalhado: ${meses} meses<br>
+    Saldo de salário: R$ ${saldoSalario.toFixed(2)}<br>
+    FGTS: R$ ${fgts.toFixed(2)}<br>
+    Multa FGTS (40%): R$ ${multa.toFixed(2)}<br><br>
+    <strong>Total: R$ ${total.toFixed(2)}</strong>
   `;
 }
 </script>
