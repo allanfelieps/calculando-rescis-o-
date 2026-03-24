@@ -59,4 +59,89 @@
       background: #2e7d32;
       color: white;
       border: none;
-      border
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #1b5e20;
+    }
+
+    .resultado {
+      margin-top: 20px;
+      padding: 15px;
+      background: #f1f8e9;
+      border-radius: 10px;
+      display: none;
+      font-size: 14px;
+    }
+
+    .resultado strong {
+      color: #2e7d32;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="card">
+  <h1>Calculadora de Rescisão</h1>
+
+  <div class="campo">
+    <input type="date" id="admissao">
+  </div>
+
+  <div class="campo">
+    <input type="date" id="demissao">
+  </div>
+
+  <div class="campo">
+    <input type="number" id="salario" placeholder="Salário (R$)">
+  </div>
+
+  <button onclick="calcular()">Calcular</button>
+
+  <div class="resultado" id="resultado"></div>
+</div>
+
+<script>
+function calcular() {
+  const admissao = new Date(document.getElementById("admissao").value);
+  const demissao = new Date(document.getElementById("demissao").value);
+  const salario = parseFloat(document.getElementById("salario").value);
+
+  if (!document.getElementById("admissao").value || 
+      !document.getElementById("demissao").value || 
+      !salario) {
+    alert("Preencha todos os campos!");
+    return;
+  }
+
+  const tempo = (demissao - admissao) / (1000 * 60 * 60 * 24 * 30);
+  const meses = Math.floor(tempo);
+
+  const saldoSalario = salario;
+  const fgts = salario * 0.08 * meses;
+  const multa = fgts * 0.4;
+
+  const total = saldoSalario + fgts + multa;
+
+  const resultado = document.getElementById("resultado");
+  resultado.style.display = "block";
+
+  resultado.innerHTML = `
+    <strong>Resultado:</strong><br><br>
+    Tempo trabalhado: ${meses} meses<br>
+    Saldo de salário: R$ ${saldoSalario.toFixed(2)}<br>
+    FGTS: R$ ${fgts.toFixed(2)}<br>
+    Multa FGTS: R$ ${multa.toFixed(2)}<br><br>
+    <strong>Total: R$ ${total.toFixed(2)}</strong>
+  `;
+}
+</script>
+
+</body>
+</html>
