@@ -1,10 +1,86 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
-  <title>Meu Site</title>
+<meta charset="UTF-8">
+<title>Calculadora de Rescisão</title>
+<style>
+  body {
+    font-family: Arial;
+    background: #0f172a;
+    color: white;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+  }
+  .box {
+    background: #1e293b;
+    padding: 20px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 400px;
+  }
+  input, select, button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: none;
+  }
+  button {
+    background: #22c55e;
+    color: white;
+    font-weight: bold;
+  }
+  .resultado {
+    margin-top: 15px;
+    font-size: 18px;
+  }
+</style>
 </head>
+
 <body>
-  <h1>Fala galera 🚀</h1>
-  <p>Meu site está no ar!</p>
+
+<div class="box">
+  <h2>Calculadora de Rescisão 💼</h2>
+
+  <input type="number" id="salario" placeholder="Salário (R$)">
+  <input type="date" id="admissao">
+  <input type="date" id="demissao">
+
+  <select id="tipo">
+    <option value="sem_justa">Sem justa causa</option>
+    <option value="pedido">Pedido de demissão</option>
+  </select>
+
+  <button onclick="calcular()">Calcular</button>
+
+  <div class="resultado" id="resultado"></div>
+</div>
+
+<script>
+function calcular() {
+  let salario = parseFloat(document.getElementById('salario').value);
+  let admissao = new Date(document.getElementById('admissao').value);
+  let demissao = new Date(document.getElementById('demissao').value);
+
+  if (!salario || !admissao || !demissao) {
+    alert("Preencha todos os campos!");
+    return;
+  }
+
+  let meses = (demissao.getFullYear() - admissao.getFullYear()) * 12 +
+              (demissao.getMonth() - admissao.getMonth());
+
+  let saldo = salario / 30 * demissao.getDate();
+  let ferias = (salario / 12) * meses;
+  let decimo = (salario / 12) * meses;
+
+  let total = saldo + ferias + decimo;
+
+  document.getElementById('resultado').innerHTML =
+    "💰 Total estimado: R$ " + total.toFixed(2);
+}
+</script>
+
 </body>
 </html>
