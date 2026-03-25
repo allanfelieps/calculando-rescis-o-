@@ -1,354 +1,250 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Calculadora de Rescisão</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 <style>
-* { box-sizing: border-box; font-family: Arial, sans-serif; }
-body {
-  background: #f4f7fb;
-  padding: 20px;
-}
+* { box-sizing:border-box; margin:0; padding:0; font-family:'Inter',sans-serif; }
+body { background:#f4f7fb; color:#333; padding:20px; }
+
+/* CONTAINER */
 .container {
-  max-width: 650px;
-  margin: auto;
-  background: white;
-  padding: 30px 40px;
-  border-radius: 12px;
-  box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+  max-width:600px;
+  margin:auto;
+  background:#fff;
+  padding:30px;
+  border-radius:12px;
+  box-shadow:0 6px 20px rgba(0,0,0,0.08);
 }
-h1 {
-  font-size: 38px;
-  font-weight: 700;
-  text-transform: uppercase;
-  text-align: center;
-  margin-bottom: 10px;
-  color: #007B5E;
+
+/* TÍTULO COM ANIMAÇÃO */
+h1, h2 {
+  opacity:0;
+  transform: translateY(20px);
+  animation: fadeUp 0.6s forwards;
 }
-.subtitulo {
-  font-size: 18px;
-  text-align: center;
-  margin-bottom: 25px;
-  color: #444;
+h1 { animation-delay:0.1s; font-size:32px; text-align:center; color:#0a3d62; margin-bottom:10px; }
+h2 { animation-delay:0.2s; font-size:18px; text-align:center; font-weight:400; color:#555; margin-bottom:30px; }
+
+/* ANIMAÇÃO FADE-UP */
+@keyframes fadeUp {
+  to { opacity:1; transform:translateY(0); }
+}
+
+/* FORMULÁRIO COM ANIMAÇÃO */
+form {
+  display:flex;
+  flex-direction:column;
+  gap:20px;
 }
 label {
-  font-weight: 600;
-  margin-top: 15px;
-  display: block;
+  font-weight:600;
+  display:flex;
+  align-items:center;
+  gap:5px;
+  opacity:0;
+  transform:translateY(20px);
+  animation: fadeUp 0.6s forwards;
 }
-.input-group {
-  position: relative;
-}
-.input-group span {
-  position: absolute;
-  left: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #555;
-}
-.input-group input {
-  padding-left: 30px;
-}
+label:nth-child(1){ animation-delay:0.3s; }
+label:nth-child(2){ animation-delay:0.4s; }
+label:nth-child(3){ animation-delay:0.5s; }
+label:nth-child(4){ animation-delay:0.6s; }
+
 input, select {
-  width: 100%;
-  padding: 12px;
-  margin-top: 5px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  background: #f9fafc;
-  font-size: 14px;
-  transition: 0.3s;
+  padding:12px 15px;
+  border-radius:8px;
+  border:1px solid #ccc;
+  font-size:16px;
+  background:#eaf1fc;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+  transition: all 0.2s ease;
 }
 input:focus, select:focus {
-  outline: none;
-  border-color: #007B5E;
-  background: #fff;
-  box-shadow: 0 0 5px rgba(0,123,94,0.2);
+  border-color:#0a3d62;
+  outline:none;
+  box-shadow: 0 0 5px rgba(10,61,98,0.2);
 }
+
+/* BOTÕES */
 button {
-  margin-top: 20px;
-  width: 100%;
-  padding: 14px;
-  background: #007B5E;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: 0.3s;
+  padding:12px;
+  background:#0a3d62;
+  color:#fff;
+  font-size:16px;
+  font-weight:600;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  opacity:0;
+  transform:translateY(20px);
+  animation: fadeUp 0.6s forwards;
+  animation-delay:0.7s;
 }
 button:hover {
-  background: #005a42;
-  transform: translateY(-2px);
+  background:#06508b;
+  transform:translateY(-2px);
 }
-.resultado {
-  margin-top: 20px;
-  padding: 20px;
-  background: #e8f6ff;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  display: none;
-  text-align: center;
-}
-/* Checkbox e ajuda */
-.checkbox {
-  margin-top: 15px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.checkbox input {
-  width: auto;
-  margin: 0;
-}
-.help-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: #007B5E;
-  color: white;
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  font-size: 14px;
+
+/* TOOLTIP */
+.tooltip {
+  position: relative;
+  display: inline-block;
   cursor: pointer;
-  margin-left: 8px;
+  color:#0a3d62;
+  font-weight:bold;
+  font-size:16px;
 }
-.help-btn:hover {
-  background: #005a42;
+.tooltip .tooltiptext {
+  visibility:hidden;
+  width:220px;
+  background-color:#0a3d62;
+  color:#fff;
+  text-align:left;
+  padding:10px;
+  border-radius:6px;
+  position:absolute;
+  z-index:1;
+  bottom:125%; left:50%;
+  transform:translateX(-50%);
+  opacity:0;
+  transition: opacity 0.3s;
+  font-size:14px;
+  line-height:1.4;
 }
-.help-text {
-  display: none;
-  font-size: 13px;
-  color: #333;
-  margin-top: 5px;
-  background: #f9f9f9;
-  padding: 8px;
-  border-radius: 6px;
-  border: 1px solid #ddd;
+.tooltip:hover .tooltiptext {
+  visibility:visible;
+  opacity:1;
 }
-/* Seção Como Funciona */
-.how-it-works {
-  margin-top: 50px;
-  text-align: center;
+
+/* RESULTADO */
+#resultado {
+  background:#e8f0fe;
+  padding:20px;
+  border-radius:10px;
+  margin-top:20px;
+  font-size:16px;
+  line-height:1.6;
+  opacity:0;
+  transform:translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
-.how-it-works h2 { margin-bottom: 25px; }
-.how-it-works .steps {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  gap: 20px;
+#resultado.show {
+  opacity:1;
+  transform:translateY(0);
 }
-.how-it-works .step {
-  background: #f9fafc;
-  padding: 20px;
-  border-radius: 10px;
-  flex: 1 1 200px;
-  min-width: 200px;
+
+/* RODAPÉ */
+footer {
+  text-align:center;
+  margin-top:40px;
+  font-size:14px;
+  color:#888;
 }
-/* Seção HTTPS seguro */
-.trust {
-  margin-top: 40px;
-  text-align: center;
-  background: #f1fdf7;
-  padding: 20px;
-  border-radius: 10px;
-}
-/* Responsividade */
-@media(max-width:500px){
-  .container { padding: 20px; }
-  h1 { font-size: 28px; }
-  .subtitulo { font-size: 16px; }
-  .how-it-works .steps { flex-direction: column; }
+
+/* RESPONSIVO */
+@media(max-width:600px){
+  h1 { font-size:28px; }
+  h2 { font-size:16px; }
 }
 </style>
 </head>
 <body>
+
 <div class="container">
   <h1>CÁLCULO DA RESCISÃO</h1>
-  <div class="subtitulo">
-    Saiba agora como realizar o cálculo da rescisão trabalhista
-  </div>
-  
-  <label>
-    Motivo da rescisão
-    <span class="help-btn" onclick="toggleHelp('help-motivo')">?</span>
-  </label>
-  <select id="motivo">
-    <option value="sem">Sem justa causa</option>
-    <option value="pedido">Pedido de demissão</option>
-    <option value="justa">Justa causa</option>
-  </select>
-  <div id="help-motivo" class="help-text">
-    <strong>Sem justa causa:</strong> A empresa demite o funcionário sem motivo específico.<br>
-    <strong>Pedido de demissão:</strong> Você solicita a saída da empresa.<br>
-    <strong>Justa causa:</strong> A demissão ocorre por mau comportamento ou quebra de regras.
-  </div>
+  <h2>Saiba agora como calcular seus direitos trabalhistas de forma rápida e segura</h2>
 
-  <label>Data de admissão</label>
-  <input type="date" id="admissao">
-  <label>Data de demissão</label>
-  <input type="date" id="demissao">
+  <form id="rescisaoForm">
+    <label>Salário Mensal
+      <input type="number" id="salario" placeholder="R$ 0,00" required>
+    </label>
 
-  <label>Salário</label>
-  <div class="input-group">
-    <span>R$</span>
-    <input type="text" id="salario" placeholder="0,00">
-  </div>
+    <label>Motivo da Demissão
+      <select id="motivo">
+        <option value="">Selecione</option>
+        <option value="sem_justa_causa">Sem Justa Causa</option>
+        <option value="com_justa_causa">Com Justa Causa</option>
+        <option value="pedido_rescisao">Pedido de Rescisão</option>
+      </select>
+      <span class="tooltip">❓
+        <span class="tooltiptext">
+          Sem justa causa: a empresa encerra o contrato.<br>
+          Com justa causa: o empregado cometeu falta grave.<br>
+          Pedido de rescisão: o próprio empregado pede demissão.
+        </span>
+      </span>
+    </label>
 
-  <label class="checkbox">
-    <input type="checkbox" id="ferias">
-    <span>Possui férias vencidas</span>
-    <span class="help-btn" onclick="toggleHelp('help-ferias')">?</span>
-  </label>
-  <div id="help-ferias" class="help-text">
-    Se você possui férias vencidas, o valor deve ser pago junto à rescisão, acrescido de 1/3.
-  </div>
+    <label>Possui Férias Vencidas
+      <select id="ferias">
+        <option value="">Selecione</option>
+        <option value="sim">Sim</option>
+        <option value="nao">Não</option>
+      </select>
+      <span class="tooltip">❓
+        <span class="tooltiptext">
+          Se você não tirou suas férias completas, você tem direito a receber o valor correspondente.
+        </span>
+      </span>
+    </label>
 
-  <label>
-    Aviso prévio
-    <span class="help-btn" onclick="toggleHelp('help-aviso')">?</span>
-  </label>
-  <select id="aviso">
-    <option value="sim">Sim</option>
-    <option value="nao">Não</option>
-  </select>
-  <div id="help-aviso" class="help-text">
-    O aviso prévio é o período que o empregado deve cumprir antes da saída, podendo ser indenizado caso não seja cumprido.
-  </div>
+    <label>Aviso Prévio
+      <select id="aviso">
+        <option value="">Selecione</option>
+        <option value="trabalhado">Trabalhado</option>
+        <option value="indenizado">Indenizado</option>
+      </select>
+      <span class="tooltip">❓
+        <span class="tooltiptext">
+          Aviso prévio trabalhado: você cumpre o período de aviso.<br>
+          Aviso prévio indenizado: você recebe o valor sem precisar trabalhar.
+        </span>
+      </span>
+    </label>
 
-  <button onclick="calcular()">Calcular</button>
-  <button onclick="baixarPDF()">Baixar PDF</button>
+    <button type="button" onclick="calcular()">Calcular Rescisão</button>
+  </form>
 
-  <div class="resultado" id="resultado"></div>
-
-  <!-- Seção Como Funciona -->
-  <section class="how-it-works">
-    <h2>Como Funciona</h2>
-    <div class="steps">
-      <div class="step">
-        <h3>1. Preencha seus dados</h3>
-        <p>Informe salário, datas e motivo da saída.</p>
-      </div>
-      <div class="step">
-        <h3>2. Marque adicionais</h3>
-        <p>Inclua férias vencidas e aviso prévio se houver.</p>
-      </div>
-      <div class="step">
-        <h3>3. Veja o resultado</h3>
-        <p>O cálculo aparece detalhado e fácil de entender.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Seção HTTPS seguro -->
-  <section class="trust">
-    <h3>🔐 Site Seguro</h3>
-    <p>Todos os dados são transmitidos via HTTPS. Sua privacidade é protegida!</p>
-  </section>
-
+  <div id="resultado"></div>
 </div>
 
+<footer>
+  &copy; 2026. Todos os direitos reservados.
+</footer>
+
 <script>
-function toggleHelp(id) {
-  const elem = document.getElementById(id);
-  elem.style.display = elem.style.display === 'block' ? 'none' : 'block';
-}
-function formatarMoeda(valor) {
-  return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-}
-document.getElementById("salario").addEventListener("input", function(e) {
-  let valor = e.target.value.replace(/\D/g, "");
-  valor = (valor / 100).toFixed(2) + "";
-  valor = valor.replace(".", ",");
-  valor = valor.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-  e.target.value = valor;
-});
-function calcular() {
-  const motivo = document.getElementById("motivo").value;
-  const admissao = new Date(document.getElementById("admissao").value);
-  const demissao = new Date(document.getElementById("demissao").value);
-  const aviso = document.getElementById("aviso").value;
-  let salario = document.getElementById("salario").value.replace(/\./g,'').replace(',','.');
-  salario = parseFloat(salario);
-  const ferias = document.getElementById("ferias").checked;
-  if (!salario || !admissao || !demissao) {
-    alert("Preencha todos os campos!");
+function calcular(){
+  const salario = parseFloat(document.getElementById('salario').value) || 0;
+  const motivo = document.getElementById('motivo').value;
+  const ferias = document.getElementById('ferias').value;
+  const aviso = document.getElementById('aviso').value;
+
+  if(!salario || !motivo || !ferias || !aviso){
+    alert('Preencha todos os campos para calcular.');
     return;
   }
-  let anos = demissao.getFullYear() - admissao.getFullYear();
-  let meses = demissao.getMonth() - admissao.getMonth();
-  if (meses < 0) { anos--; meses += 12; }
-  const totalMeses = anos*12 + meses;
-  let fgts = salario * 0.08 * totalMeses;
-  let multa = (motivo === "sem") ? fgts * 0.4 : 0;
-  let valorFerias = ferias ? salario + salario/3 : 0;
-  let valorAviso = 0;
-  if (aviso === "sim") { valorAviso = salario; }
-  if (motivo === "justa") { multa = 0; valorFerias = 0; valorAviso = 0; }
-  const total = salario + fgts + multa + valorFerias + valorAviso;
-  const resultado = document.getElementById("resultado");
-  resultado.style.display = "block";
-  resultado.innerHTML = `
-    <strong>Resultado:</strong><br><br>
-    Tempo: ${anos} ano(s) e ${meses} mês(es) (${totalMeses} meses)<br>
-    Salário: ${formatarMoeda(salario)}<br>
-    FGTS: ${formatarMoeda(fgts)}<br>
-    Multa de 40% do FGTS: ${formatarMoeda(multa)}<br>
-    ${valorFerias ? `Férias: ${formatarMoeda(valorFerias)}<br>` : ""}
-    ${valorAviso ? `Aviso Prévio: ${formatarMoeda(valorAviso)}<br>` : ""}
-    <br><strong>Total: ${formatarMoeda(total)}</strong>
-    <hr>
-    <small>Este cálculo é apenas uma estimativa. Consulte um contador ou advogado trabalhista.</small>
+
+  let total = salario;
+  if(motivo==='sem_justa_causa') total += salario;
+  if(ferias==='sim') total += salario/3;
+  if(aviso==='indenizado') total += salario;
+
+  const resultadoDiv = document.getElementById('resultado');
+  resultadoDiv.innerHTML = `
+    <strong>Resumo do cálculo:</strong><br>
+    Salário base: R$ ${salario.toFixed(2)}<br>
+    Motivo da demissão: ${motivo.replace('_',' ')}<br>
+    Férias vencidas: ${ferias}<br>
+    Aviso prévio: ${aviso}<br>
+    <strong>Total aproximado a receber: R$ ${total.toFixed(2)}</strong>
   `;
-}
-function baixarPDF() {
-  const conteudo = document.getElementById("resultado").innerText;
-  const win = window.open('', '', 'height=700,width=700');
-  win.document.write('<pre>' + conteudo + '</pre>');
-  win.document.close();
-  win.print();
+  resultadoDiv.classList.add('show');
 }
 </script>
+
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
