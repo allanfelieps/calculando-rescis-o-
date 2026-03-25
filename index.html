@@ -2,333 +2,149 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Calcular Rescisão Trabalhista Online Grátis</title>
-<meta name="description" content="Calcule sua rescisão trabalhista online grátis de forma rápida e fácil.">
+<title>Rescisão Fácil - Calculadora de Rescisão Trabalhista</title>
+
+<meta name="description" content="Calcule sua rescisão trabalhista online de forma simples e rápida com a Rescisão Fácil. Simulador gratuito.">
+<meta name="keywords" content="rescisão trabalhista, cálculo de rescisão, simulador de rescisão">
 
 <style>
-* { box-sizing: border-box; font-family: Arial, sans-serif; }
+* {
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
 body {
+  margin: 0;
   background: #f4f7fb;
-  padding: 20px;
 }
+
+.header {
+  background: #2d6cdf;
+  color: white;
+  text-align: center;
+  padding: 30px 20px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 32px;
+}
+
+.header p {
+  margin-top: 10px;
+  font-size: 16px;
+}
+
 .container {
-  max-width: 650px;
-  margin: auto;
+  max-width: 600px;
+  margin: 30px auto;
   background: white;
-  padding: 30px 40px;
-  border-radius: 12px;
-  box-shadow: 0 5px 25px rgba(0,0,0,0.08);
-
-  animation: fadeIn 0.6s ease;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-h1 {
-  font-size: 38px;
-  font-weight: 700;
-  text-transform: uppercase;
-  text-align: center;
-  margin-bottom: 10px;
-  color: #007B5E;
-}
-.subtitulo {
-  font-size: 18px;
-  text-align: center;
-  margin-bottom: 25px;
-  color: #444;
-}
 label {
-  font-weight: 600;
-  margin-top: 15px;
   display: block;
+  margin-top: 15px;
+  font-weight: bold;
 }
-.input-group {
-  position: relative;
-}
-.input-group span {
-  position: absolute;
-  left: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #555;
-}
-.input-group input {
-  padding-left: 30px;
-}
+
 input, select {
   width: 100%;
-  padding: 12px;
+  padding: 10px;
   margin-top: 5px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  background: #f9fafc;
-  font-size: 14px;
-  transition: 0.3s;
+  border-radius: 5px;
+  border: 1px solid #ccc;
 }
-input:focus, select:focus {
-  outline: none;
-  border-color: #007B5E;
-  background: #fff;
-  box-shadow: 0 0 5px rgba(0,123,94,0.2);
-}
+
 button {
-  margin-top: 20px;
   width: 100%;
-  padding: 14px;
-  background: #007B5E;
+  margin-top: 20px;
+  padding: 12px;
+  background: #2d6cdf;
   color: white;
   border: none;
-  border-radius: 8px;
-  cursor: pointer;
+  border-radius: 5px;
   font-size: 16px;
-  transition: 0.3s;
-}
-button:hover {
-  background: #005a42;
-  transform: translateY(-2px);
-}
-.resultado {
-  margin-top: 20px;
-  padding: 20px;
-  background: #e8f6ff;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  display: none;
-  text-align: center;
-}
-.checkbox {
-  margin-top: 15px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.checkbox input {
-  width: auto;
-  margin: 0;
-}
-.help-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: #007B5E;
-  color: white;
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  font-size: 14px;
   cursor: pointer;
-  margin-left: 8px;
 }
-.help-btn:hover {
-  background: #005a42;
+
+button:hover {
+  background: #1c4fb5;
 }
-.help-text {
-  display: none;
-  font-size: 13px;
-  color: #333;
-  margin-top: 5px;
-  background: #f9f9f9;
-  padding: 8px;
-  border-radius: 6px;
-  border: 1px solid #ddd;
+
+.result {
+  margin-top: 20px;
+  padding: 15px;
+  background: #eaf2ff;
+  border-radius: 5px;
+  font-weight: bold;
 }
-.how-it-works {
-  margin-top: 50px;
+
+.footer {
   text-align: center;
-}
-.how-it-works h2 { margin-bottom: 25px; }
-.how-it-works .steps {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-.how-it-works .step {
-  background: #f9fafc;
-  padding: 20px;
-  border-radius: 10px;
-  flex: 1 1 200px;
-  min-width: 200px;
-}
-.trust {
-  margin-top: 40px;
-  text-align: center;
-  background: #f1fdf7;
-  padding: 20px;
-  border-radius: 10px;
-}
-@media(max-width:500px){
-  .container { padding: 20px; }
-  h1 { font-size: 28px; }
-  .subtitulo { font-size: 16px; }
-  .how-it-works .steps { flex-direction: column; }
+  margin-top: 30px;
+  font-size: 12px;
+  color: #777;
 }
 </style>
 </head>
+
 <body>
 
+<div class="header">
+  <h1>Rescisão Fácil</h1>
+  <p>Saiba agora como calcular sua rescisão trabalhista de forma simples e rápida</p>
+</div>
+
 <div class="container">
-  <h1>CÁLCULO DA RESCISÃO</h1>
-  <div class="subtitulo">
-    Saiba agora como realizar o cálculo da rescisão trabalhista
-  </div>
-  
-  <label>
-    Motivo da rescisão
-    <span class="help-btn" onclick="toggleHelp('help-motivo')">?</span>
-  </label>
+
+  <label>Salário (R$)</label>
+  <input type="number" id="salario">
+
+  <label>Tempo de empresa (meses)</label>
+  <input type="number" id="tempo">
+
+  <label>Motivo da demissão</label>
   <select id="motivo">
     <option value="sem">Sem justa causa</option>
-    <option value="pedido">Pedido de demissão</option>
-    <option value="justa">Justa causa</option>
+    <option value="com">Com justa causa</option>
   </select>
-  <div id="help-motivo" class="help-text">
-    <strong>Sem justa causa:</strong> A empresa demite o funcionário sem motivo específico.<br>
-    <strong>Pedido de demissão:</strong> Você solicita a saída da empresa.<br>
-    <strong>Justa causa:</strong> A demissão ocorre por mau comportamento ou quebra de regras.
-  </div>
 
-  <label>Data de admissão</label>
-  <input type="date" id="admissao">
-  <label>Data de demissão</label>
-  <input type="date" id="demissao">
+  <button onclick="calcular()">Calcular Rescisão</button>
 
-  <label>Salário</label>
-  <div class="input-group">
-    <span>R$</span>
-    <input type="text" id="salario" placeholder="0,00">
-  </div>
-
-  <label class="checkbox">
-    <input type="checkbox" id="ferias">
-    <span>Possui férias vencidas</span>
-    <span class="help-btn" onclick="toggleHelp('help-ferias')">?</span>
-  </label>
-  <div id="help-ferias" class="help-text">
-    Se você possui férias vencidas, o valor deve ser pago junto à rescisão, acrescido de 1/3.
-  </div>
-
-  <label>
-    Aviso prévio
-    <span class="help-btn" onclick="toggleHelp('help-aviso')">?</span>
-  </label>
-  <select id="aviso">
-    <option value="sim">Sim</option>
-    <option value="nao">Não</option>
-  </select>
-  <div id="help-aviso" class="help-text">
-    O aviso prévio é o período que o empregado deve cumprir antes da saída, podendo ser indenizado caso não seja cumprido.
-  </div>
-
-  <button onclick="calcular()">Calcular</button>
-  <button onclick="baixarPDF()">Baixar PDF</button>
-
-  <div class="resultado" id="resultado"></div>
-
-  <section class="how-it-works">
-    <h2>Como Funciona</h2>
-    <div class="steps">
-      <div class="step">
-        <h3>1. Preencha seus dados</h3>
-        <p>Informe salário, datas e motivo da saída.</p>
-      </div>
-      <div class="step">
-        <h3>2. Marque adicionais</h3>
-        <p>Inclua férias vencidas e aviso prévio se houver.</p>
-      </div>
-      <div class="step">
-        <h3>3. Veja o resultado</h3>
-        <p>O cálculo aparece detalhado e fácil de entender.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="trust">
-    <h3>🔐 Site Seguro</h3>
-    <p>Todos os dados são transmitidos via HTTPS. Sua privacidade é protegida!</p>
-  </section>
+  <div class="result" id="resultado"></div>
 
 </div>
 
+<div class="footer">
+  © 2026 Rescisão Fácil - Simulador Informativo
+</div>
+
 <script>
-function toggleHelp(id) {
-  const elem = document.getElementById(id);
-  elem.style.display = elem.style.display === 'block' ? 'none' : 'block';
-}
-
-function formatarMoeda(valor) {
-  return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-}
-
-document.addEventListener("DOMContentLoaded", function() {
-  document.getElementById("salario").addEventListener("input", function(e) {
-    let valor = e.target.value.replace(/\D/g, "");
-    valor = (valor / 100).toFixed(2) + "";
-    valor = valor.replace(".", ",");
-    valor = valor.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-    e.target.value = valor;
-  });
-});
-
 function calcular() {
-  const motivo = document.getElementById("motivo").value;
-  const admissao = new Date(document.getElementById("admissao").value);
-  const demissao = new Date(document.getElementById("demissao").value);
-  const aviso = document.getElementById("aviso").value;
-  let salario = document.getElementById("salario").value.replace(/\./g,'').replace(',','.');
-  salario = parseFloat(salario);
-  const ferias = document.getElementById("ferias").checked;
+  let salario = parseFloat(document.getElementById("salario").value);
+  let tempo = parseFloat(document.getElementById("tempo").value);
+  let motivo = document.getElementById("motivo").value;
 
-  if (!salario || !admissao || !demissao) {
-    alert("Preencha todos os campos!");
+  if (!salario || !tempo) {
+    document.getElementById("resultado").innerText = "Preencha todos os campos.";
     return;
   }
 
-  let anos = demissao.getFullYear() - admissao.getFullYear();
-  let meses = demissao.getMonth() - admissao.getMonth();
-  if (meses < 0) { anos--; meses += 12; }
+  let valor = 0;
 
-  const totalMeses = anos*12 + meses;
-  let fgts = salario * 0.08 * totalMeses;
-  let multa = (motivo === "sem") ? fgts * 0.4 : 0;
-  let valorFerias = ferias ? salario + salario/3 : 0;
-  let valorAviso = aviso === "sim" ? salario : 0;
-
-  if (motivo === "justa") {
-    multa = 0;
-    valorFerias = 0;
-    valorAviso = 0;
+  if (motivo === "sem") {
+    valor = salario + (salario * 0.4) + (tempo * (salario / 12));
+  } else {
+    valor = salario;
   }
 
-  const total = salario + fgts + multa + valorFerias + valorAviso;
-
-  const resultado = document.getElementById("resultado");
-  resultado.style.display = "block";
-  resultado.innerHTML = `
-    <strong>Resultado:</strong><br><br>
-    Tempo: ${anos} ano(s) e ${meses} mês(es) (${totalMeses} meses)<br>
-    Salário: ${formatarMoeda(salario)}<br>
-    FGTS: ${formatarMoeda(fgts)}<br>
-    Multa de 40% do FGTS: ${formatarMoeda(multa)}<br>
-    ${valorFerias ? `Férias: ${formatarMoeda(valorFerias)}<br>` : ""}
-    ${valorAviso ? `Aviso Prévio: ${formatarMoeda(valorAviso)}<br>` : ""}
-    <br><strong>Total: ${formatarMoeda(total)}</strong>
-    <hr>
-    <small>Este cálculo é apenas uma estimativa.</small>
-  `;
-}
-
-function baixarPDF() {
-  const conteudo = document.getElementById("resultado").innerText;
-  const win = window.open('', '', 'height=700,width=700');
-  win.document.write('<pre>' + conteudo + '</pre>');
-  win.document.close();
-  win.print();
+  document.getElementById("resultado").innerText =
+    "Valor estimado da rescisão: R$ " + valor.toFixed(2);
 }
 </script>
 
