@@ -7,17 +7,30 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 <style>
 * { box-sizing:border-box; margin:0; padding:0; font-family:'Inter',sans-serif; }
-body { background:#f4f7fb; color:#333; padding:20px; }
+body { background:#f4f7fb; color:#333; display:flex; justify-content:center; align-items:flex-start; min-height:100vh; padding:20px; }
 
-/* CONTAINER */
+/* CONTAINER CENTRALIZADO */
 .container {
-  max-width:600px;
-  margin:auto;
+  max-width:650px;
+  width:100%;
   background:#fff;
-  padding:30px;
+  padding:40px 30px;
   border-radius:12px;
-  box-shadow:0 6px 20px rgba(0,0,0,0.08);
+  box-shadow:0 6px 25px rgba(0,0,0,0.1);
+  text-align:center;
 }
+
+/* SELINHO HTTPS */
+.secure {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  font-size:14px;
+  color:#0a3d62;
+  margin-bottom:15px;
+}
+.secure span { font-weight:bold; }
 
 /* TÍTULO COM ANIMAÇÃO */
 h1, h2 {
@@ -25,20 +38,14 @@ h1, h2 {
   transform: translateY(20px);
   animation: fadeUp 0.6s forwards;
 }
-h1 { animation-delay:0.1s; font-size:32px; text-align:center; color:#0a3d62; margin-bottom:10px; }
-h2 { animation-delay:0.2s; font-size:18px; text-align:center; font-weight:400; color:#555; margin-bottom:30px; }
+h1 { animation-delay:0.1s; font-size:32px; color:#0a3d62; margin-bottom:8px; }
+h2 { animation-delay:0.2s; font-size:18px; font-weight:400; color:#555; margin-bottom:30px; }
 
 /* ANIMAÇÃO FADE-UP */
-@keyframes fadeUp {
-  to { opacity:1; transform:translateY(0); }
-}
+@keyframes fadeUp { to { opacity:1; transform:translateY(0); } }
 
 /* FORMULÁRIO COM ANIMAÇÃO */
-form {
-  display:flex;
-  flex-direction:column;
-  gap:20px;
-}
+form { display:flex; flex-direction:column; gap:20px; }
 label {
   font-weight:600;
   display:flex;
@@ -62,11 +69,7 @@ input, select {
   box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
   transition: all 0.2s ease;
 }
-input:focus, select:focus {
-  border-color:#0a3d62;
-  outline:none;
-  box-shadow: 0 0 5px rgba(10,61,98,0.2);
-}
+input:focus, select:focus { border-color:#0a3d62; outline:none; box-shadow:0 0 5px rgba(10,61,98,0.2); }
 
 /* BOTÕES */
 button {
@@ -84,20 +87,10 @@ button {
   animation: fadeUp 0.6s forwards;
   animation-delay:0.7s;
 }
-button:hover {
-  background:#06508b;
-  transform:translateY(-2px);
-}
+button:hover { background:#06508b; transform:translateY(-2px); }
 
 /* TOOLTIP */
-.tooltip {
-  position: relative;
-  display: inline-block;
-  cursor: pointer;
-  color:#0a3d62;
-  font-weight:bold;
-  font-size:16px;
-}
+.tooltip { position: relative; display:inline-block; cursor:pointer; color:#0a3d62; font-weight:bold; font-size:16px; }
 .tooltip .tooltiptext {
   visibility:hidden;
   width:220px;
@@ -115,10 +108,7 @@ button:hover {
   font-size:14px;
   line-height:1.4;
 }
-.tooltip:hover .tooltiptext {
-  visibility:visible;
-  opacity:1;
-}
+.tooltip:hover .tooltiptext { visibility:visible; opacity:1; }
 
 /* RESULTADO */
 #resultado {
@@ -132,29 +122,37 @@ button:hover {
   transform:translateY(20px);
   transition: opacity 0.5s ease, transform 0.5s ease;
 }
-#resultado.show {
-  opacity:1;
-  transform:translateY(0);
+#resultado.show { opacity:1; transform:translateY(0); }
+
+/* SEÇÃO COMO FUNCIONA */
+.como-funciona {
+  text-align:left;
+  margin-top:40px;
+  padding:20px;
+  background:#f0f4fb;
+  border-radius:10px;
+  opacity:0;
+  transform:translateY(20px);
+  animation: fadeUp 0.6s forwards;
+  animation-delay:0.8s;
 }
+.como-funciona h3 { color:#0a3d62; margin-bottom:12px; }
+.como-funciona ol { margin-left:20px; }
 
 /* RODAPÉ */
-footer {
-  text-align:center;
-  margin-top:40px;
-  font-size:14px;
-  color:#888;
-}
+footer { text-align:center; margin-top:40px; font-size:14px; color:#888; }
 
 /* RESPONSIVO */
-@media(max-width:600px){
-  h1 { font-size:28px; }
-  h2 { font-size:16px; }
-}
+@media(max-width:600px){ h1{ font-size:28px; } h2{ font-size:16px; } }
 </style>
 </head>
 <body>
 
 <div class="container">
+
+  <!-- SELINHO HTTPS -->
+  <div class="secure">🔒 <span>Site Seguro (HTTPS)</span></div>
+
   <h1>CÁLCULO DA RESCISÃO</h1>
   <h2>Saiba agora como calcular seus direitos trabalhistas de forma rápida e segura</h2>
 
@@ -210,6 +208,18 @@ footer {
   </form>
 
   <div id="resultado"></div>
+
+  <!-- SEÇÃO COMO FUNCIONA -->
+  <div class="como-funciona">
+    <h3>Como funciona:</h3>
+    <ol>
+      <li>Preencha seu salário e dados de rescisão.</li>
+      <li>Escolha o motivo da demissão, férias vencidas e aviso prévio.</li>
+      <li>Clique em "Calcular Rescisão".</li>
+      <li>O sistema mostrará o valor aproximado a receber.</li>
+    </ol>
+  </div>
+
 </div>
 
 <footer>
